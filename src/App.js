@@ -1,5 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import About from './Pages/about';
+import SignUp from './Pages/signup';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -18,7 +22,15 @@ function App() {
           Learn React
         </a>
       </header>
+      <Router>
+      <Navbar />
+      <Routes>
+        <Route path='/about' component={About} />
+        <Route path='/sign-up' component={SignUp} />
+      </Routes>
+    </Router>
     </div>
+    
   );
 }
 
