@@ -1,9 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './Pages/about';
 import SignUp from './Pages/signup';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/index';
+import ProfileForm from './components/Forms/ResumeDataForm';
 
 function App() {
   return (
@@ -22,11 +23,13 @@ function App() {
           Learn React
         </a>
       </header> */}
+      
       <Router>
       <Navbar />
       <Routes>
-        <Route path='/about' component={About} />
-        <Route path='/sign-up' component={SignUp} />
+        <Route path='/about' element={ < About / >} />
+        <Route path='/sign-up' element={ < SignUp / > } />
+        <Route path='/Edit-Profile' element={ < ProfileForm / >} />
       </Routes>
     </Router>
     </div>
