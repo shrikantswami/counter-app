@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './Pages/about';
 import SignUp from './Pages/signup';
 import Navbar from './components/Navbar/index';
-import ProfileForm from './components/Forms/ResumeDataForm';
+// import ProfileForm from './components/Forms/ResumeDataForm';
+import Form from './components/Forms/ResumeDataForm';
+import PageNotFound from './Pages/PageNotFound/index';
 
 function App() {
   return (
@@ -26,11 +28,16 @@ function App() {
       
       <Router>
       <Navbar />
+      <switch>
       <Routes>
+        
         <Route path='/about' element={ < About / >} />
         <Route path='/sign-up' element={ < SignUp / > } />
-        <Route path='/Edit-Profile' element={ < ProfileForm / >} />
+        <Route path='/Edit-Profile' element={ < Form / >  } />
+        <Route path='/page-not-found' element ={ < PageNotFound / >} title="Page Not Found" />
+        
       </Routes>
+      </switch>
     </Router>
     </div>
     
