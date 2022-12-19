@@ -8,28 +8,33 @@ import {
   NavBtnLink,
 } from './NavbarElements';
 
-
+import Logo from '../../components/Logo';
   
 const Navbar = () => {
   return (
     <>
       <Nav>
+        <Logo size="24px"  />
         <Bars />
+        
         <NavMenu>
+          
+          <NavLink to='/' activeStyle >
+            Home
+          </NavLink>
           <NavLink to='/about' activeStyle >
             About
           </NavLink>
-          <NavLink to='/sign-up' activeStyle>
-            Sign Up
+          <NavLink to='/career' activeStyle>
+            Career
           </NavLink>
           <NavLink to='/Edit-Profile' activeStyle>
             Edit Profile
           </NavLink>
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+        <NavBtnLink to='/sign-up'>Sign Up</NavBtnLink>
+          <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
         </NavBtn>
       </Nav>
     </>

@@ -7,6 +7,8 @@ import Navbar from './components/Navbar/index';
 // import ProfileForm from './components/Forms/ResumeDataForm';
 import Form from './components/Forms/ResumeDataForm';
 import PageNotFound from './Pages/PageNotFound/index';
+import Home from './Pages/Home/Home';
+import NewAccount from './Pages/Accounts/NewAccount/index'
 
 function App() {
   return (
@@ -30,12 +32,11 @@ function App() {
       <Navbar />
       <switch>
       <Routes>
-        
+        <Route path='/' element={ < Home / >} />
         <Route path='/about' element={ < About / >} />
-        <Route path='/sign-up' element={ < SignUp / > } />
         <Route path='/Edit-Profile' element={ < Form / >  } />
         <Route path='/page-not-found' element ={ < PageNotFound / >} title="Page Not Found" />
-        
+        <Route path='/sign-up' element ={ < NewAccount / >} title="SignUp" />
       </Routes>
       </switch>
     </Router>

@@ -27,14 +27,11 @@ const Form = (props) => {
 
     return (
         <form {...others} onSubmit={(e) => e.preventDefault()}> 
-            <div>
-                    <label htmlFor="email">First Name</label>
-                    <input type="text" name="First_Name" />
-            </div>
             {children}
             {enableDefaultButtons && 
                 <ButtonRow>
                     <Button variant="contained" color={btnClass} disabled={disabled} onClick={handleSubmit}>
+                    {/* <Button variant="contained" color={btnClass} disabled={disabled} > */}
                         {inSubmit && 
                             <Loader />
                         }
