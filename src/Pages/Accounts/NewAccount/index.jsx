@@ -16,7 +16,7 @@ const NewAccount = () => {
     const [lastName, setLastName] = useState( format );
     const [middleName, setMiddleName] = useState( format );
     const [emailAddress, setEmailAddress] = useState( format );
-    const [mobileNumber, setMobileNumber] = useState( format );
+    const [password, setPassword] = useState( format );
 
 
     const [accountName, setAccountName] = useState({
@@ -34,7 +34,7 @@ const NewAccount = () => {
     
     const handleSubmit = () => {
         console.log(' it came here ')
-        let response =  fetch("http://127.0.0.1:8000/user_profile/", {
+        let response =  fetch("http://127.0.0.1:8000/api/auth/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -43,19 +43,16 @@ const NewAccount = () => {
           firstName: firstName,
           lastName: lastName,
           middleName: middleName,
-          emailAddress: emailAddress,
-          mobileNumber: mobileNumber,
+          email: emailAddress,
+          password: password,
             })
         }).then( response => {
             if (!response.ok) 
-                console.log(" un successful")  
-            console.log("successful")  
+                console.log(" un successful")
+            else  
+                console.log("successful")  
         } );
         console.log('data posted')
-        // let resJson = response.json()
-        // let status =  response
-        console.log(response)
-        console.log(response.json())
         return response.ok;
           
         // return false;
@@ -92,7 +89,7 @@ const NewAccount = () => {
                         <Input label="Last Name" type="text" name="last-name" maxLen={100} required={true} changeHandler={setLastName} fullWidth variant="outlined" />
                         <Input label="Middle Name" type="text" name="middle-name" maxLen={100} required={true} changeHandler={setMiddleName} fullWidth variant="outlined" />
                         <Input label="Email Address" type="text" name="email-address" maxLen={100} required={true} changeHandler={setEmailAddress} fullWidth variant="outlined" />
-                        <Input label="Mobile Number" type="text" name="mobile-number" maxLen={100} required={true}  changeHandler={setMobileNumber} fullWidth variant="outlined" /> 
+                        <Input label="Password" type="text" name="password" maxLen={100} required={true}  changeHandler={setPassword} fullWidth variant="outlined" /> 
                     </Form>
                 </div>
                 </Box>

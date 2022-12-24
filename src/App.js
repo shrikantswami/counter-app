@@ -9,12 +9,13 @@ import Form from './components/Forms/ResumeDataForm';
 import PageNotFound from './Pages/PageNotFound/index';
 import Home from './Pages/Home/Home';
 import NewAccount from './Pages/Accounts/NewAccount/index'
+import LogIn from './Pages/Accounts/Login';
 
 function App() {
   return (
     <div className="App">
       {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" />zl
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -37,6 +38,7 @@ function App() {
         <Route path='/Edit-Profile' element={ < Form / >  } />
         <Route path='/page-not-found' element ={ < PageNotFound / >} title="Page Not Found" />
         <Route path='/sign-up' element ={ < NewAccount / >} title="SignUp" />
+        <Route path='/sign-in' element ={ < LogIn / >} title="SignIn" />
       </Routes>
       </switch>
     </Router>
