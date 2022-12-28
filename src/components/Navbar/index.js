@@ -30,8 +30,8 @@ const Navbar = () => {
             Career
           </NavLink>
           { logedIn &&
-          <NavLink to='/Edit-Profile' activeStyle>
-            Edit Profile
+          <NavLink to='/Dashboard' activeStyle>
+            Dashboard
           </NavLink>}
         </NavMenu>
         { !logedIn &&

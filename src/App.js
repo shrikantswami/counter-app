@@ -42,14 +42,14 @@ function App() {
               <Routes>
                 <Route path='/' element={ < Home / >} />
                 <Route path='/about' element={ < About / >} />
-                <Route path='/Edit-Profile' element={ < Form / >  } />
+                <Route path='/Dashboard' element={ < Form / >  } />
                 <Route path='/page-not-found' element ={ < PageNotFound / >} title="Page Not Found" />
                 <Route path='/sign-up' element ={ < NewAccount / >} title="SignUp" />
                 <Route path='/sign-in' element ={ < LogIn / >} title="SignIn" />
               </Routes>
             </switch>
           </Router>
-    </AuthContext.Provider>
+      </AuthContext.Provider>
     </div>
     
   );

@@ -5,6 +5,7 @@ import Form from "../../../components/Forms/ResumeDataForm";
 import Input from "../../../components/Forms/Input";
 import { Navigate } from 'react-router-dom';
 import AuthContext from "../Auth/AuthContext";
+import Cookies from "js-cookie";
 
 const LogIn = () => {
     const {accesstoken, userDetails, refreshtoken, setAccessToken, setUserDetails , setRefreshToken, logedIn, setLogedIn} = useContext(AuthContext)
@@ -50,7 +51,9 @@ const LogIn = () => {
                     if (resp.access) {
                         setUserDetails(resp);
                         setLogedIn(true);
-                        setNavigate("/Edit-Profile")  }
+                        setNavigate("/Dashboard");
+                        Cookies.set('refresh-token', resp.refresh, { expires: 1})
+                    }
                     else 
                         console.log('not accessible')
                     console.log(' stored data')
