@@ -3,17 +3,17 @@ import React, {useState ,} from "react";
 
 const AuthContextProvider = ({ children }) => {
     console.log('call is fine')
-        // const [user] = useState(() => {
-        //   console.log('children')
-        //   console.log(children)
-        //   let userProfle = localStorage.getItem("userProfile");
-        //   if (userProfle) {
-        //     console.log('children')
-        //     return null
-        //     // return JSON.parse(userProfle);
-        //   }
-        //   return null;
-        // });
+        const [user] = useState(() => {
+          console.log('children')
+          console.log(children)
+          let userProfle = localStorage.getItem("userProfile");
+          if (userProfle) {
+            console.log('children')
+            return null
+            // return JSON.parse(userProfle);
+          }
+          return null;
+        });
     
     return (
       <>
