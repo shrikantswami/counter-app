@@ -3,8 +3,10 @@ import React, {useState, useContext, useEffect, useRef } from "react";
 // import { Form, Input } from '../../../../components/Form';
 import Form from "../../../components/Forms/ResumeDataForm";
 import Input from "../../../components/Forms/Input";
+import AuthContext from "../Auth/AuthContext";
 
 const NewAccount = () => {
+    const [accesstoken, userDetails, refreshtoken, setAccessToken, setUserDetails , setRefreshToken,logedIn, setLogedIn] = useContext(AuthContext)
     const title = 'Create New Account';
     const mountedRef = useRef(true);
     const format = {
@@ -82,7 +84,7 @@ const NewAccount = () => {
                     //     })
                     // }}
                     // disabled={accountName.hasError || accountName.value===null || inSubmit}
-                    disabled = {false}
+                    disabled = {logedIn}
                     inSubmit = {inSubmit}
                     enableDefaultButtons={true} >
                         <Input label="First Name" type="text" name="first-name" maxLen={50} required={true} changeHandler={setFirstName} fullWidth variant="outlined" />

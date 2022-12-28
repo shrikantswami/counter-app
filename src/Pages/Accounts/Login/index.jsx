@@ -3,8 +3,11 @@ import React, {useState, useContext, useEffect, useRef } from "react";
 // import { Form, Input } from '../../../../components/Form';
 import Form from "../../../components/Forms/ResumeDataForm";
 import Input from "../../../components/Forms/Input";
+import { Navigate } from 'react-router-dom';
+import AuthContext from "../Auth/AuthContext";
 
 const LogIn = () => {
+    const {accesstoken, userDetails, refreshtoken, setAccessToken, setUserDetails , setRefreshToken, logedIn, setLogedIn} = useContext(AuthContext)
     const title = 'LogIn';
     const mountedRef = useRef(true);
     const format = {
@@ -27,11 +30,12 @@ const LogIn = () => {
 
     const [inSubmit, setInSubmit] = useState(false);
 
-    const [redirect, setRedirect] = useState(null);
-
+    const [navigate, setNavigate] = useState(null);
+    const user = useContext(AuthContext);    
     
     const handleSubmit =  () => {
         console.log(' came for login ')
+        setInSubmit(true);
         let response =  fetch("http://127.0.0.1:8000/api/auth/login/", {
         method: "POST",
         headers: {
@@ -41,19 +45,21 @@ const LogIn = () => {
           username: userName,
           password: passWord,
             })
-        }).then( response => {
-            if (!response.ok) 
-                console.log(" un successful")
-            else  
-                console.log("successful")
-                console.log(response)  
-        } );
-
+        }).then( response => response.json() ).then( resp => {
+                    console.log(" data ",resp);
+                    if (resp.access) {
+                        setUserDetails(resp);
+                        setLogedIn(true);
+                        setNavigate("/Edit-Profile")  }
+                    else 
+                        console.log('not accessible')
+                    console.log(' stored data')
+                    }
+        );
+        console.log(response)
         console.log('data posted')
-
+        setInSubmit(false);
         return response.ok;
-          
-        // return false;
     }
     return (
         <Container>
@@ -62,13 +68,16 @@ const LogIn = () => {
                 <div className="card-body">
                     <Form
                     handleSubmit = { handleSubmit }
-                    disabled = {false}
+                    disabled = {logedIn}
                     inSubmit = {inSubmit}
                     enableDefaultButtons={true} >
                         <Input label="Username" type="text" name="username" maxLen={100} required={true} changeHandler={setUserName} fullWidth variant="outlined" />
                         <Input label="Password" type="text" name="password" maxLen={100} required={true}  changeHandler={setPassword} fullWidth variant="outlined" /> 
                     </Form>
                 </div>
+                {navigate !== null &&
+                <Navigate to={navigate}></Navigate>
+                }
                 </Box>
             </Paper>
         </Container>

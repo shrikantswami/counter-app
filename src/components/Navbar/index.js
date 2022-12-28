@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Nav,
   NavLink,
@@ -7,10 +7,11 @@ import {
   NavBtn,
   NavBtnLink,
 } from './NavbarElements';
-
+import AuthContext from '../../Pages/Accounts/Auth/AuthContext';
 import Logo from '../../components/Logo';
   
 const Navbar = () => {
+  const {logedIn} = useContext(AuthContext)
   return (
     <>
       <Nav>
@@ -28,14 +29,16 @@ const Navbar = () => {
           <NavLink to='/career' activeStyle>
             Career
           </NavLink>
+          { logedIn &&
           <NavLink to='/Edit-Profile' activeStyle>
             Edit Profile
-          </NavLink>
+          </NavLink>}
         </NavMenu>
-        <NavBtn>
-        <NavBtnLink to='/sign-up'>Sign Up</NavBtnLink>
-          <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
-        </NavBtn>
+        { !logedIn &&
+          <NavBtn>
+              <NavBtnLink to='/sign-up'>Sign Up</NavBtnLink>
+              <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
+          </NavBtn>}
       </Nav>
     </>
   );
