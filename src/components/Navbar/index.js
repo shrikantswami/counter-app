@@ -14,7 +14,7 @@ const Navbar = () => {
   const {logedIn} = useContext(AuthContext)
   return (
     <>
-      <Nav>
+      <Nav position='fixed'>
         <Logo size="24px"  />
         <Bars />
         
