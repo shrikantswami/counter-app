@@ -1,13 +1,19 @@
 import React from 'react';
+import { Box } from '@mui/material';
+import BasicCard from '../../components/Card/card'
+import Typography from '@mui/material/Typography';
 
-import Logo from '../../components/Logo';
+// m={10}
 
 const Home = () => (
-    <div className="text-center">
-        <Logo size="80px" />
-        <h1>Welcome To Profile</h1>
-        {/* <p>Oops, the page you requested is not found.</p> */}
-    </div>
+    <Box  sx= {{
+        padding: '20px',marginLeft:'220px',
+    }}>
+        <BasicCard/>
+        <Typography  >
+
+        </Typography>
+    </Box>
 );
 
 export default Home;
