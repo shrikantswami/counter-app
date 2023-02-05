@@ -6,13 +6,11 @@ import Typography from '@mui/material/Typography';
 // m={10}
 
 const Home = () => (
+    
     <Box  sx= {{
-        padding: '20px',marginLeft:'220px',
+        padding: '50px',marginLeft:'220px', 
     }}>
         <BasicCard/>
-        <Typography  >
-
-        </Typography>
     </Box>
 );
 

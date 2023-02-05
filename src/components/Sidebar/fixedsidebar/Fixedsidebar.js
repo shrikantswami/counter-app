@@ -16,21 +16,14 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import PeopleIcon from '@mui/icons-material/People';
 import LogIn from '../../../Pages/Accounts/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { makeStyles } from '@mui/styles';
 import { Link } from '@mui/material';
 import makeStyles from 'styled-components';
-
+import Navbar from '../../Navbar';
+import { NavLink } from '../../Navbar/NavbarElements';
 const drawerWidth = 240;
-
-// const useStyles = makeStyles({
-//     drawerPaper: {
-//       marginTop: "50px"
-//     }
-//   });
-
-
 
 export default function ClippedDrawer() {
     // const classes = useStyles();
@@ -47,7 +40,7 @@ export default function ClippedDrawer() {
       >
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
-        <List>
+          <List>
             {['Products'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
@@ -65,18 +58,34 @@ export default function ClippedDrawer() {
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    { index == 0 ? <AccountCircleIcon /> : < SupportAgentIcon/>}
+                    { text == 'Account' ? <AccountCircleIcon /> : < SupportAgentIcon/> }
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+          <List>
+            {['Users'].map((text, index) => (
+              <NavLink to ='/users'>
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    
+                    {< PeopleIcon/>}
+                    
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+              </NavLink>
+            ))}
+          </List>
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -89,20 +98,7 @@ export default function ClippedDrawer() {
           feugiat vivamus at augue. At augue eget arcu dictum varius duis at
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
       </Box>
     </Box>
   );

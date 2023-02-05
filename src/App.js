@@ -16,6 +16,7 @@ import Cookies from 'js-cookie';
 import Sidebar from './components/Sidebar/fixedsidebar';
 import { Box } from '@mui/material';
 import PageHeaders  from './Pages/PageHeader';
+import Users from './Pages/Accounts/User/Users';
 
 function App() {
   const [userDetails, setUserDetails] = useState({});
@@ -23,7 +24,6 @@ function App() {
   const [refreshtoken, setRefreshToken] = useState(null);
   const [logedIn, setLogedIn] = useState(false);
   let refreshToken = Cookies.get('refresh-token');
-  // console.log("access token", accesstoken)
   console.log("refresh token", refreshToken)
   let updatedAccessToken = null;
   if (refreshToken && !accesstoken) {
@@ -59,13 +59,14 @@ function App() {
             {/* <switch> */}
               <Routes>
               
-                <Route path='/' element={ < Home / >} />
+               { logedIn == true &&  <Route path='/' element={ < Home / >} /> }
                 <Route path='/about' element={ < About / >} />
                 <Route path='/Dashboard' element={ < Form / >  } />
                 <Route path='/page-not-found' element ={ < PageNotFound / >} title="Page Not Found" />
                 <Route path='/sign-up' element ={ < NewAccount / >} title="SignUp" />
                 <Route path='/sign-in' element ={ < LogIn / >} title="SignIn" />
                 <Route path='/account' element ={ < PageHeaders / >} title="PageHeader" />
+                <Route path='/users' element ={ < Users / >} title="Users" />
               </Routes>
             
 
