@@ -17,6 +17,8 @@ import Sidebar from './components/Sidebar/fixedsidebar';
 import { Box } from '@mui/material';
 import PageHeaders  from './Pages/PageHeader';
 import Users from './Pages/Accounts/User/Users';
+import Items from './Pages/Products';
+import EnhancedTable from './Pages/Products';
 
 function App() {
   const [userDetails, setUserDetails] = useState({});
@@ -67,6 +69,8 @@ function App() {
                 <Route path='/sign-in' element ={ < LogIn / >} title="SignIn" />
                 <Route path='/account' element ={ < PageHeaders / >} title="PageHeader" />
                 <Route path='/users' element ={ < Users / >} title="Users" />
+                <Route path='/products' element ={ < EnhancedTable / >} title="Products" />
+                
               </Routes>
             
 

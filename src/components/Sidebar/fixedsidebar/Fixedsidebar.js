@@ -43,12 +43,14 @@ export default function ClippedDrawer() {
           <List>
             {['Products'].map((text, index) => (
               <ListItem key={text} disablePadding>
+                <NavLink to ='/products'>
                 <ListItemButton>
                   <ListItemIcon>
                     {< ListIcon/>}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
+                </NavLink>
               </ListItem>
             ))}
           </List>
