@@ -21,7 +21,9 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { Maincontent ,Cbox ,List, SearchBar} from '../../layout';
+import { Maincontent ,Cbox ,List, SearchBar,SearchBoxContainer, SearchButton} from '../../layout';
+import { useState } from "react";
+import AuthContext from '../Accounts/Auth/AuthContext'
 // import SearchBar from "material-ui-search-bar";
 
 function createData(name, calories, fat, carbs, protein) {
@@ -227,13 +229,18 @@ function createData(name, calories, fat, carbs, protein) {
   };
   
   export default function EnhancedTable() {
+    const [accesstoken, setAccessToken] = useState(null);
+    const [productList, setproductList] = useState({});
+    const [logedIn, setLogedIn] = useState(false);
+    const [userDetails] = useState({});
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  
+    const [search, setSearch] = React.useState('test')
+
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrder(isAsc ? 'desc' : 'asc');
@@ -287,98 +294,129 @@ function createData(name, calories, fat, carbs, protein) {
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  
+    
+    const searchProducts = (event) => {
+        console.log({search});
+        console.log({accesstoken});
+        if (!accesstoken) {
+            console.log("getting list of products ")
+            productList  =  fetch("http://127.0.0.1:8000/shop_api/product_list", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+                      },
+              body: JSON.stringify({
+                access: accesstoken,
+                  })
+              }).then(response => response.json()).then( response =>{
+                // setAccessToken(updatedAccessToken.access);
+                console.log("access token",response);
+                // setLogedIn(true);
+              }
+              ) 
+          }
+    }
+    const changeHandler = (input)=>{
+            setSearch(input.target.value)
+            console.log(search)
+    }
     return (
-        <Maincontent>
+        <AuthContext.Provider value={{accesstoken, userDetails, logedIn}} >
+            <Maincontent>
             <List>
-      <Box sx={{ width: '100%' }}>
-        <SearchBar placeholder ="Search.."/>
-        <Paper sx={{ width: '100%', mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} />
-          <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size={dense ? 'small' : 'medium'}
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows.length}
-              />
-              <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.name);
-                    const labelId = `enhanced-table-checkbox-${index}`;
-  
-                    return (
-                      <TableRow
-                        hover
-                        onClick={(event) => handleClick(event, row.name)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.name}
-                        selected={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            color="primary"
-                            checked={isItemSelected}
-                            inputProps={{
-                              'aria-labelledby': labelId,
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
+            <Box sx={{ width: '100%' }}>
+                <SearchBoxContainer>
+                    <SearchBar placeholder ="Search.." type="text" onChange={changeHandler} />
+                    <SearchButton label="Search" name="Search" onClick= {searchProducts} >Search</SearchButton>
+                </SearchBoxContainer>
+            {console.log(search)}
+            <Paper sx={{ width: '100%', mb: 2 }}>
+            <EnhancedTableToolbar numSelected={selected.length} />
+            <TableContainer>
+                <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+                >
+                <EnhancedTableHead
+                    numSelected={selected.length}
+                    order={order}
+                    orderBy={orderBy}
+                    onSelectAllClick={handleSelectAllClick}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                />
+                <TableBody>
+                    {stableSort(rows, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                        const isItemSelected = isSelected(row.name);
+                        const labelId = `enhanced-table-checkbox-${index}`;
+    
+                        return (
+                        <TableRow
+                            hover
+                            onClick={(event) => handleClick(event, row.name)}
+                            role="checkbox"
+                            aria-checked={isItemSelected}
+                            tabIndex={-1}
+                            key={row.name}
+                            selected={isItemSelected}
                         >
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (dense ? 33 : 53) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-        <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
-        />
-      </Box>
-      </List>
-      </Maincontent>
+                            <TableCell padding="checkbox">
+                            <Checkbox
+                                color="primary"
+                                checked={isItemSelected}
+                                inputProps={{
+                                'aria-labelledby': labelId,
+                                }}
+                            />
+                            </TableCell>
+                            <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                            >
+                            {row.name}
+                            </TableCell>
+                            <TableCell align="right">{row.calories}</TableCell>
+                            <TableCell align="right">{row.fat}</TableCell>
+                            <TableCell align="right">{row.carbs}</TableCell>
+                            <TableCell align="right">{row.protein}</TableCell>
+                        </TableRow>
+                        );
+                    })}
+                    {emptyRows > 0 && (
+                    <TableRow
+                        style={{
+                        height: (dense ? 33 : 53) * emptyRows,
+                        }}
+                    >
+                        <TableCell colSpan={6} />
+                    </TableRow>
+                    )}
+                </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            </Paper>
+            <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Dense padding"
+            />
+        </Box>
+        </List>
+            </Maincontent>
+        </AuthContext.Provider>
     );
 
   }
