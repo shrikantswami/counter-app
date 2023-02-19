@@ -307,6 +307,7 @@ function createData(name, calories, fat, carbs, protein) {
                       },
               body: JSON.stringify({
                 access: accesstoken,
+                search : search,
                   })
               }).then(response => response.json()).then( response =>{
                 // setAccessToken(updatedAccessToken.access);
