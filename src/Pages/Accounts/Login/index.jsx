@@ -52,11 +52,13 @@ const LogIn = () => {
                         setUserDetails(resp);
                         setLogedIn(true);
                         setNavigate("/Dashboard");
+                        setAccessToken(resp.access);
                         Cookies.set('refresh-token', resp.refresh, { expires: 1})
                     }
                     else 
                         console.log('not accessible')
                     console.log(' stored data')
+                    console.log(accesstoken)
                     }
         );
         console.log(response)

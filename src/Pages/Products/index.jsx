@@ -229,6 +229,7 @@ function createData(name, calories, fat, carbs, protein) {
   };
   
   export default function EnhancedTable() {
+    const user = React.useContext(AuthContext)
     const [accesstoken, setAccessToken] = useState(null);
     const [productList, setproductList] = useState({});
     const [logedIn, setLogedIn] = useState(false);
@@ -296,23 +297,23 @@ function createData(name, calories, fat, carbs, protein) {
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
     
     const searchProducts = (event) => {
-        console.log({search});
-        console.log({accesstoken});
-        if (!accesstoken) {
+        console.log(search);
+        console.log("Bearer "+ user['accesstoken'])
+        if (user['accesstoken']) {
             console.log("getting list of products ")
-            productList  =  fetch("http://127.0.0.1:8000/shop_api/product_list", {
+            productList  =  fetch("http://127.0.0.1:8000/shop_api/product_details", {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization":"Bearer "+ user['accesstoken']
                       },
               body: JSON.stringify({
-                access: accesstoken,
+                access: user['accesstoken'],
                 search : search,
                   })
               }).then(response => response.json()).then( response =>{
-                // setAccessToken(updatedAccessToken.access);
-                console.log("access token",response);
-                // setLogedIn(true);
+                console.log("response ",response);
+                console.log(user['accesstoken'])
               }
               ) 
           }
@@ -322,7 +323,7 @@ function createData(name, calories, fat, carbs, protein) {
             console.log(search)
     }
     return (
-        <AuthContext.Provider value={{accesstoken, userDetails, logedIn}} >
+        // <AuthContext.Provider value={{accesstoken, userDetails, logedIn}} >
             <Maincontent>
             <List>
             <Box sx={{ width: '100%' }}>
@@ -417,7 +418,7 @@ function createData(name, calories, fat, carbs, protein) {
         </Box>
         </List>
             </Maincontent>
-        </AuthContext.Provider>
+        // </AuthContext.Provider>
     );
 
   }

@@ -46,7 +46,7 @@ function App() {
       ) 
   }
   else {
-    console.log("already logged in")
+    console.log("already logged in chec",accesstoken)
   }
 
   return (
@@ -58,7 +58,6 @@ function App() {
              
             </Navbar> 
           
-            {/* <switch> */}
               <Routes>
               
                { logedIn == true &&  <Route path='/' element={ < Home / >} /> }
